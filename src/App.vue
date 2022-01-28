@@ -5,9 +5,21 @@ import Footer from "@/components/Footer/index.vue";
 
 <template>
   <Header />
+  <div class="wrapper">
+    <router-view />
+  </div>
   <Footer />
 </template>
 
 <style lang="scss">
 @import url(@/assets/scss/main.scss);
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  > .wrapper {
+    flex-grow: 1;
+    width: 95%;
+  }
+}
 </style>

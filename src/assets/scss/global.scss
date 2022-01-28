@@ -1,11 +1,13 @@
 html {
   /* ---- ---- */
   --header-height: 75px;
-  --header-background-color: #eea94f;
-  --base-background-color: #df9f4c;
+  --header-background-color: #f0ad56;
+  --base-background-color: #eea94f;
   /* ---- scrollbar ---- */
   --styleMode-webkit-scrollbar-thumb: #c3822c;
   --styleMode-webkit-scrollbar: #e79f40;
+  /* ----- font ----- */
+  --font-family: Arial, Helvetica, sans-serif;
   &[dark] {
     /* ---- scrollbar ---- */
     --styleMode-webkit-scrollbar-thumb: #aaaaaa;
