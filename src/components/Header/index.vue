@@ -15,7 +15,7 @@ header {
   right: 0;
 }
 :global(body) {
-  // height: calc(100vh - var(--header-height)) !important;
+  height: calc(100vh - var(--header-height)) !important;
   margin-top: var(--header-height) !important;
 }
 </style>
