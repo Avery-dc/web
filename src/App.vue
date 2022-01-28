@@ -1,5 +1,13 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Header from "@/components/Header/index.vue";
+import Footer from "@/components/Footer/index.vue";
+</script>
 
-<template></template>
+<template>
+  <Header />
+  <Footer />
+</template>
 
-<style lang="scss"></style>
+<style lang="scss">
+@import url(@/assets/scss/global.scss);
+</style>
