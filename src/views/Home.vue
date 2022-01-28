@@ -17,7 +17,7 @@
       </ul>
     </div>
     <div class="right">
-      <img src="@/assets/images/Home/rightPNG.svg" alt="awa" />
+      <img src="@/assets/images/Home/rightPNG.png" alt="awa" />
     </div>
   </section>
   <section class="Features"></section>
