@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: npm run build:pro
         env:
-          VITE_BASE: ${{ env.VITE_BASE }}
+          VITE_BASE: ${{ github.env.VITE_BASE }}
 
       # use https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-enable-built-in-jekyll-enable_jekyll
       - name: Deploy
