@@ -9,5 +9,5 @@ import Footer from "@/components/Footer/index.vue";
 </template>
 
 <style lang="scss">
-@import url(@/assets/scss/global.scss);
+@import url(@/assets/scss/main.scss);
 </style>

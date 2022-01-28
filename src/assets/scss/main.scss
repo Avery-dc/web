@@ -1,0 +1,27 @@
+@import url(./global.scss);
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--base-background-color);
+}
+
+/* ----- scrollbar ----- */
+::-webkit-scrollbar {
+  background-color: var(--styleMode-webkit-scrollbar);
+  width: 15px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  background-color: var(--styleMode-webkit-scrollbar-thumb);
+}
+/* ----- selection ----- */
+::selection {
+  background-color: #004daa;
+  color: #e8e6e3;
+}
