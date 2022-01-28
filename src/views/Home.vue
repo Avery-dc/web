@@ -24,34 +24,45 @@
 </template>
 
 <style scoped lang="scss">
-.description {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-  justify-content: center;
-  .left {
-    .title {
-      font-weight: 900;
-      font-size: 70px;
-    }
-    .advantage {
-      list-style: none;
-      font-size: 18pt;
-      li {
-        position: relative;
-        &::before {
-          position: absolute;
-          color: #acfd5a;
-          content: "✔";
-          left: -30px;
+section {
+  margin-top: 2em;
+  &.description {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    .left {
+      .title {
+        font-weight: 900;
+        font-size: 65px;
+      }
+      .advantage {
+        list-style: none;
+        font-size: 18pt;
+        li {
+          position: relative;
+          &::before {
+            position: absolute;
+            color: #acfd5a;
+            content: "✔";
+            left: -30px;
+          }
         }
       }
     }
-  }
-  .right {
-    img {
+    .right img {
       width: 100%;
+    }
+    @media all and (max-width: 1100px) {
+      grid-template-columns: none;
+      .right {
+        display: flex;
+        justify-content: center;
+        img {
+          width: 90%;
+        }
+      }
     }
   }
 }
