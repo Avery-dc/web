@@ -67,6 +67,9 @@ section {
             width: 35px;
             margin-right: 10px;
           }
+          &:hover {
+            opacity: 0.95;
+          }
         }
       }
     }
