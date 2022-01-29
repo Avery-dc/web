@@ -8,9 +8,11 @@
     "build:pro": "cross-env NODE_ENV=production vite build"
   },
   "dependencies": {
+    "@types/axios": "^0.14.0",
     "@types/node": "^17.0.13",
     "@types/vue": "^2.0.0",
     "@types/vue-router": "^2.0.0",
+    "axios": "^0.25.0",
     "cross-env": "^7.0.3",
     "dotenv": "^14.3.2",
     "sass": "^1.49.0",

@@ -1,5 +1,34 @@
 <script setup lang="ts">
+import axios from "axios";
+axios;
+Object.assign(window, { axios });
 const BASE_URL = import.meta.env.BASE_URL;
+const login = () => {
+  let win = window.open(
+    "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
+    "",
+    "width=500,height=620"
+  );
+  if (win?.onbeforeunload) win.onbeforeunload = (e) => console.log("ww", e);
+
+  type _ET = Event & { detail?: { code?: string } };
+  addEventListener("get_dc_code", async (event: unknown) => {
+    let _ = event as _ET;
+    if (_?.detail?.code) {
+      let { data } = await axios({
+        url: "http://localhost:3001/services/discord-callback",
+        method: "POST",
+        data: {
+          code: _.detail?.code,
+          redirect_uri: "http://localhost:3000/discord-callback",
+        },
+      });
+      console.log(data);
+      // localStorage; keep
+      // sessionStorage;
+    }
+  });
+};
 </script>
 
 <template>
@@ -8,7 +37,11 @@ const BASE_URL = import.meta.env.BASE_URL;
       <img src="@/assets/images/Home/LogoLong.png" alt="" />
       <p>Avery<sup>TW</sup></p>
     </a>
-    <div class="menu"></div>
+    <div class="menu">
+      <ul>
+        <div @click="login">登入</div>
+      </ul>
+    </div>
   </header>
 </template>
 
@@ -39,3 +72,6 @@ header {
   height: calc(100vh - var(--header-height)) !important;
 }
 </style>
+
+function axios(arg0: { url: string; method: string; data: string; }) { throw new
+Error("Function not implemented."); }
