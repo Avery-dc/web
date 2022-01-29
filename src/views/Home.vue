@@ -5,7 +5,7 @@ import config from "@/config";
 <template>
   <section class="description flex flex-item-center flex-center">
     <div class="left">
-      <img src="@/assets/images/Home/LogoLong.png" alt="" />
+      <img src="@/assets/images/LogBoR.png" alt="" />
     </div>
     <div class="right flex flex-down flex-item-center">
       <h1 class="title">
@@ -25,6 +25,7 @@ import config from "@/config";
       </div>
     </div>
   </section>
+  <section></section>
   <section class="Features"></section>
 </template>
 
@@ -36,13 +37,8 @@ section {
     > * {
       margin: 0 1em;
     }
-    .left {
-      img {
-        width: 200px;
-        background-color: #ffb455;
-        border-radius: 50%;
-        padding: 1em;
-      }
+    .left img {
+      width: 200px;
     }
     .right {
       .title {
