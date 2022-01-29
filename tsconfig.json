@@ -14,6 +14,7 @@
     "esModuleInterop": true,
     "allowJs": true,
     "noUnusedLocals": false,
+    "noUnusedParameters": true,
     "lib": [
       "es6",
       "esnext",

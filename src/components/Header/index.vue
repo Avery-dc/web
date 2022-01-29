@@ -1,17 +1,32 @@
 <script setup lang="ts">
+import { reactive } from "vue";
 import axios from "axios";
-axios;
-Object.assign(window, { axios });
+
+import { _ET } from "@/types/event";
+import { getLocalStorage, setLocalStorage } from "@/controllers/web";
+import discordApi from "@/controllers/discord";
+
+const dc_data = reactive({}) as any;
 const BASE_URL = import.meta.env.BASE_URL;
+
+let token = getLocalStorage("token");
+let dcApi = new discordApi();
+
+if (token?.access_token) {
+  dcApi.init(token.access_token);
+  dcApi
+    .getMe()
+    .then((d) => Object.assign(dc_data, d.data))
+    .catch((e) => console.log(e));
+}
+
 const login = () => {
-  let win = window.open(
+  window.open(
     "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
     "",
     "width=500,height=620"
   );
-  if (win?.onbeforeunload) win.onbeforeunload = (e) => console.log("ww", e);
 
-  type _ET = Event & { detail?: { code?: string } };
   addEventListener("get_dc_code", async (event: unknown) => {
     let _ = event as _ET;
     if (_?.detail?.code) {
@@ -23,9 +38,11 @@ const login = () => {
           redirect_uri: "http://localhost:3000/discord-callback",
         },
       });
-      console.log(data);
-      // localStorage; keep
-      // sessionStorage;
+      if (!data?.error) {
+        let { data: userInfo } = await dcApi.getMe();
+        Object.assign(dc_data, userInfo);
+        setLocalStorage("token", data || {});
+      }
     }
   });
 };
@@ -39,7 +56,17 @@ const login = () => {
     </a>
     <div class="menu">
       <ul>
-        <div @click="login">登入</div>
+        <div class="user">
+          <div @click="login" v-if="Object.keys(dc_data).length > 0">
+            <div>
+              <img
+                :src="`https://cdn.discordapp.com/avatars/${dc_data.id}/${dc_data.avatar}.png`"
+                alt=""
+              />
+            </div>
+          </div>
+          <div @click="login" v-else>登入</div>
+        </div>
       </ul>
     </div>
   </header>
@@ -72,6 +99,3 @@ header {
   height: calc(100vh - var(--header-height)) !important;
 }
 </style>
-
-function axios(arg0: { url: string; method: string; data: string; }) { throw new
-Error("Function not implemented."); }
