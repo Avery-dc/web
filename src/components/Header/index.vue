@@ -16,7 +16,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 header {
   justify-content: space-between;
   background-color: var(--header-background-color);
-  box-shadow: 0 0 1.5em 2px #00000081;
+  box-shadow: 0 0 1.5em 2px #00000099;
   height: var(--header-height);
   padding: 0 40px;
   position: fixed;
@@ -34,8 +34,8 @@ header {
     }
   }
 }
-:global(body) {
-  height: calc(100vh - var(--header-height)) !important;
+:global(#app) {
   margin-top: var(--header-height) !important;
+  height: calc(100vh - var(--header-height)) !important;
 }
 </style>

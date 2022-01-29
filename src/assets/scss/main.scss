@@ -1,11 +1,10 @@
 @import url(./global.scss);
+@import url(./fonts.scss);
 
 html,
 body {
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
   color: var(--base-font-color);
   font-family: var(--font-family);
   background-color: var(--base-background-color);
@@ -33,6 +32,6 @@ body {
 }
 /* ----- selection ----- */
 ::selection {
-  background-color: #004daa;
+  background-color: #58f6f6ad;
   color: #e8e6e3;
 }

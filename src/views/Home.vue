@@ -1,21 +1,28 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import config from "@/config";
+</script>
 
 <template>
-  <section class="description flex flex-down flex-item-center">
-    <h1 class="title">
-      Avery
-      <br />
-      保護你的 discord 伺服器
-    </h1>
-    <div class="down flex flex-center flex-item-center">
-      <ul class="advantage">
-        <li>惡意/釣魚網站檢測</li>
-        <li>會員登入系統</li>
-        <li>可自訂設定</li>
-        <li>實時更新資料庫</li>
-        <li>用戶警告系統</li>
-      </ul>
-      <img src="@/assets/images/Home/rightPNG.png" alt="" />
+  <section class="description flex flex-item-center flex-center">
+    <div class="left">
+      <img src="@/assets/images/Home/LogoLong.png" alt="" />
+    </div>
+    <div class="right flex flex-down flex-item-center">
+      <h1 class="title">
+        Avery
+        <br />
+        保護你的 DISCORD 伺服器
+      </h1>
+      <div class="licks flex amstelvaralpha">
+        <a :href="config.invite.bot" style="--background-color: #ffb455">
+          <img src="@/assets/images/Home/LogoLong.png" alt="邀請我" />
+          邀請我
+        </a>
+        <a :href="config.invite.dcServer" style="--background-color: #5865f2">
+          <img src="@/assets/images/discord.png" alt="discord" />
+          加入我們
+        </a>
+      </div>
     </div>
   </section>
   <section class="Features"></section>
@@ -23,43 +30,68 @@
 
 <style scoped lang="scss">
 section {
-  margin-top: 2em;
   &.description {
     width: 100%;
-    .title {
-      font-weight: 900;
-      font-size: 65px;
+    height: 75%;
+    > * {
+      margin: 0 1em;
     }
-    .down {
-      width: 100%;
-      .advantage {
-        list-style: none;
-        font-size: 18pt;
-        li {
-          position: relative;
-          &::before {
-            position: absolute;
-            color: #acfd5a;
-            content: "✔";
-            left: -30px;
+    .left {
+      img {
+        width: 200px;
+        background-color: #ffb455;
+        border-radius: 50%;
+        padding: 1em;
+      }
+    }
+    .right {
+      .title {
+        font-weight: 900;
+        font-size: 65px;
+        margin-top: 0;
+      }
+      .licks {
+        height: 100%;
+        width: 70%;
+        a[href] {
+          min-height: 44px;
+          background-color: var(--background-color);
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: white;
+          font-weight: 600;
+          font-size: 25px;
+          border-radius: 5px;
+          margin: 0 10px;
+
+          img {
+            margin: 2px 0;
+            width: 35px;
+            margin-right: 10px;
           }
         }
       }
-      img {
-        width: 550px;
+    }
+    @media all and (max-width: 1250px) {
+      .left img {
+        width: 16.2vw;
+      }
+      .right .title {
+        font-size: 5.2vw !important;
       }
     }
-    @media all and (max-width: 810px) {
-      .title {
-        font-size: 8vw;
-      }
-      .down {
-        flex-direction: column;
-        img {
-          width: 80vw;
+    @media all and (max-width: 1000px) {
+      flex-direction: column;
+      .licks {
+        flex-direction: column !important;
+        a[href] {
+          margin: 10px 0 !important;
+          font-size: 2.5vw !important;
         }
-        .advantage {
-          font-size: 3.4vw;
+        :global(.wrapper) {
+          width: 100% !important;
         }
       }
     }
