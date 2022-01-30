@@ -1,4 +1,4 @@
-import axios, { AxiosPromise } from "axios";
+import axios from "axios";
 
 export default class DiscordApi {
   public token?: string;
@@ -25,6 +25,18 @@ export default class DiscordApi {
       method: "GET",
       headers: { ...this.headers },
     });
+  }
+  public async getToken(code: string): Promise<string | Object> {
+    let { data } = await axios({
+      url: "http://localhost:3001/services/discord-callback",
+      method: "POST",
+      data: { code, redirect_uri: "http://localhost:3000/discord-callback" },
+    });
+    if (data.access_token) {
+      this.token = data.access_token;
+      return data.access_token;
+    }
+    return data;
   }
   public getMe(): ReturnType<typeof this.BaseRequest> {
     return this.BaseRequest({ url: "/users/@me" });

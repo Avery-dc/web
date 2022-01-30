@@ -5,8 +5,10 @@ export enum MutationsTypes {
 }
 
 export type Mutations<S = State> = {
-  [MutationsTypes.SET_AUTH_STATUS]: (state: S, player: boolean) => void;
+  [MutationsTypes.SET_AUTH_STATUS]: (state: S, mode?: boolean) => void;
 };
 export const mutations: Mutations<State> & Mutations = {
-  [MutationsTypes.SET_AUTH_STATUS]: () => {},
+  /**設定登入狀態 */
+  [MutationsTypes.SET_AUTH_STATUS]: (state, mode) =>
+    (state.login = mode === void 0 ? !state.login : mode),
 };

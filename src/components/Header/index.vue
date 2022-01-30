@@ -39,6 +39,7 @@ const login = () => {
           redirect_uri: "http://localhost:3000/discord-callback",
         },
       });
+      console.log(data);
       if (!data?.error) {
         let { data: userInfo } = await dcApi.getMe();
         Object.assign(dc_data, userInfo);
