@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { reactive } from "vue";
+import { onMounted, reactive, ref, Ref } from "vue";
 import axios from "axios";
 
 import { _ET } from "@/types/event";
 import { getLocalStorage, setLocalStorage } from "@/controllers/web";
 import discordApi from "@/controllers/discord";
 
+const userEl = ref(null) as unknown as Ref<HTMLElement>;
 const dc_data = reactive({}) as any;
 const BASE_URL = import.meta.env.BASE_URL;
 
@@ -46,6 +47,8 @@ const login = () => {
     }
   });
 };
+
+const openLicks = () => userEl.value.classList.toggle("down");
 </script>
 
 <template>
@@ -55,19 +58,27 @@ const login = () => {
       <p>Avery<sup>TW</sup></p>
     </a>
     <div class="menu">
-      <ul>
-        <div class="user">
-          <div @click="login" v-if="Object.keys(dc_data).length > 0">
-            <div>
-              <img
-                :src="`https://cdn.discordapp.com/avatars/${dc_data.id}/${dc_data.avatar}.png`"
-                alt=""
-              />
-            </div>
+      <div class="ul flex flex-item-center">
+        <div class="user flex flex-item-center">
+          <div
+            v-if="Object.keys(dc_data).length > 0"
+            class="flex flex-item-center is-login"
+            @click="openLicks"
+            ref="userEl"
+          >
+            <img
+              :src="`https://cdn.discordapp.com/avatars/${dc_data.id}/${dc_data.avatar}.png`"
+              class="user-icon"
+              width="45"
+              alt=""
+            />
+            <span class="user-name" v-text="dc_data.username" />
+            <i class="arrow" />
+            <div class="licks"></div>
           </div>
           <div @click="login" v-else>登入</div>
         </div>
-      </ul>
+      </div>
     </div>
   </header>
 </template>
@@ -91,6 +102,37 @@ header {
     height: 70%;
     img {
       height: 100%;
+    }
+  }
+  .menu {
+    height: 100%;
+    .ul {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .user {
+      .is-login {
+        cursor: pointer;
+        user-select: none;
+        > *:not(.licks) {
+          margin: 0 5px;
+        }
+        .user-icon {
+          border-radius: 50%;
+        }
+        &.down .arrow {
+          transform: rotate(180deg);
+        }
+      }
+      .arrow {
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 8px 8px 8px;
+        border-color: transparent transparent var(--base-font-color) transparent;
+        transition: transform 0.1s ease 0s;
+      }
     }
   }
 }
