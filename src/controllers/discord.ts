@@ -1,11 +1,12 @@
 import axios from "axios";
+import Axios from "@/utils/axios";
 
 export default class DiscordApi {
   public token?: string;
   public Authorization?: string;
   public BaseRequest: ReturnType<typeof axios.create>;
   constructor(token?: string, protected user: boolean = true) {
-    this.BaseRequest = this.initRequest();
+    this.BaseRequest = Axios;
 
     this.init(token, user);
   }
@@ -16,15 +17,6 @@ export default class DiscordApi {
       sessionStorage.getItem("token") ||
       "";
     this.Authorization = `${user ? "Bearer" : "Bot"} ${token}`;
-
-    this.BaseRequest = this.initRequest();
-  }
-  public initRequest(): ReturnType<typeof axios.create> {
-    return axios.create({
-      baseURL: "https://discord.com/api/v9",
-      method: "GET",
-      headers: { ...this.headers },
-    });
   }
   public async getToken(code: string): Promise<string | Object> {
     let { data } = await axios({

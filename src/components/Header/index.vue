@@ -7,7 +7,6 @@ import { mapActions, mapGetters } from "vuex";
 import { GetterType } from "@/store/Authentication/getter";
 import { ActionsType } from "@/store/Authentication/actions";
 import { Modules } from "@/store";
-import { State } from "@/store/Authentication/state";
 
 export default defineComponent({
   computed: {
