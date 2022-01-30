@@ -6,7 +6,7 @@ import { getLocalStorage } from "@/controllers/web";
 import { mapActions, mapGetters } from "vuex";
 import { GetterType } from "@/store/Authentication/getter";
 import { ActionsType } from "@/store/Authentication/actions";
-import { Modules } from "@/store";
+import { Modules, useStore } from "@/store";
 
 export default defineComponent({
   computed: {
@@ -22,12 +22,18 @@ export default defineComponent({
     if (token?.access_token) this.getMe(token.access_token);
     addEventListener("get_dc_code", async (event: unknown) => {
       let _ = event as _ET;
-      if (_?.detail?.code) console.log(this.getMe(_.detail.code));
+      if (_?.detail?.code)
+        this.store.dispatch(
+          `${[Modules.AUTH]}/${ActionsType.LOGIN}`,
+          _?.detail?.code
+        );
     });
   },
   setup() {
-    const userEl = ref(null) as unknown as Ref<HTMLElement>;
-    const dc_data = reactive({}) as any;
+    const store = useStore();
+    const userEl = ref<unknown>(null) as Ref<HTMLElement>;
+    const dc_data = reactive(store.state.auth.userInfo) as any;
+
     const BASE_URL = import.meta.env.BASE_URL;
 
     const login = () =>
@@ -38,7 +44,8 @@ export default defineComponent({
       );
 
     const openLicks = () => userEl.value.classList.toggle("down");
-    return { login, userEl, dc_data, BASE_URL, openLicks };
+    Object.assign(window, { store });
+    return { login, userEl, dc_data, BASE_URL, openLicks, store };
   },
 });
 </script>

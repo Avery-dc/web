@@ -1,6 +1,5 @@
 import axios from "axios";
 import Axios from "@/utils/axios";
-
 export default class DiscordApi {
   public token?: string;
   public Authorization?: string;
@@ -11,12 +10,14 @@ export default class DiscordApi {
     this.init(token, user);
   }
   public init(token?: string, user: boolean = true) {
-    this.token =
+    token =
       token ||
       localStorage.getItem("token") ||
       sessionStorage.getItem("token") ||
       "";
+    this.token = token;
     this.Authorization = `${user ? "Bearer" : "Bot"} ${token}`;
+    console.log(this.Authorization);
   }
   public async getToken(code: string): Promise<string | Object> {
     let { data } = await axios({
@@ -31,21 +32,31 @@ export default class DiscordApi {
     return data;
   }
   public getMe(): ReturnType<typeof this.BaseRequest> {
-    return this.BaseRequest({ url: "/users/@me" });
+    return this.BaseRequest({ url: "/users/@me", ...this.headers });
   }
   public getGuilds(): ReturnType<typeof this.BaseRequest> {
-    return this.BaseRequest({ url: "/users/@me/guilds" });
+    return this.BaseRequest({ url: "/users/@me/guilds", ...this.headers });
   }
   public getGuildChannel(guildId: string): ReturnType<typeof this.BaseRequest> {
-    return this.BaseRequest({ url: `/guilds/${guildId}/channels` });
+    return this.BaseRequest({
+      url: `/guilds/${guildId}/channels`,
+      ...this.headers,
+    });
   }
   public getGuildMembers(guildId: string): ReturnType<typeof this.BaseRequest> {
-    return this.BaseRequest({ url: `/guilds/${guildId}/members` });
+    return this.BaseRequest({
+      url: `/guilds/${guildId}/members`,
+      ...this.headers,
+    });
   }
   public getGuildRoles(guildId: string): ReturnType<typeof this.BaseRequest> {
-    return this.BaseRequest({ url: `/guilds/${guildId}/roles` });
+    return this.BaseRequest({
+      url: `/guilds/${guildId}/roles`,
+      ...this.headers,
+    });
   }
   get headers() {
-    return { Authorization: this.Authorization || "" };
+    return { headers: { Authorization: this.Authorization || "" } };
   }
 }
+Object.assign(window, { DiscordApi });

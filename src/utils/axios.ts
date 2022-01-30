@@ -2,7 +2,11 @@ import Axios, { AxiosInstance } from "axios";
 
 export const baseURL = "https://discord.com/api/v9";
 
-const axios: AxiosInstance = Axios.create({ baseURL, timeout: 20 * 1e3 });
+const axios: AxiosInstance = Axios.create({
+  baseURL,
+  timeout: 20 * 1e3,
+  method: "GET",
+});
 
 /**前置攔截 */
 axios.interceptors.request.use(

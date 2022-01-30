@@ -1,3 +1,4 @@
+import { Modules } from ".";
 import { State as AuthenticationStateTypes } from "./Authentication/state";
 
 export default interface RootStateTypes {
@@ -5,5 +6,5 @@ export default interface RootStateTypes {
 }
 
 export interface AllStateTypes extends RootStateTypes {
-  numFactoryModule: AuthenticationStateTypes;
+  [Modules.AUTH]: AuthenticationStateTypes;
 }

@@ -26,18 +26,18 @@ export type Actions = {
 
 export const actions: ActionTree<State, RootState> & Actions = {
   [ActionsType.GET_INFO]: async ({ commit }, token) => {
-    console.log(token);
+    Client.init(token);
 
-    Client.token = token;
     let { data } = await Client.getMe();
     commit(MutationsTypes.SET_AUTH_DATA, data);
     return data;
   },
   [ActionsType.LOGIN]: async ({ commit, dispatch }, code) => {
     let token = await Client.getToken(code);
+
     if (typeof token === "string") {
       commit(MutationsTypes.SET_AUTH_STATUS, true);
-      dispatch(ActionsType.GET_INFO);
+      dispatch(ActionsType.GET_INFO, token);
 
       return token;
     }
