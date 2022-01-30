@@ -76,7 +76,7 @@ const openLicks = () => userEl.value.classList.toggle("down");
             <i class="arrow" />
             <div class="licks"></div>
           </div>
-          <div @click="login" v-else>登入</div>
+          <div class="login" @click="login" v-else>登入</div>
         </div>
       </div>
     </div>
@@ -112,6 +112,18 @@ header {
       padding: 0;
     }
     .user {
+      .login {
+        cursor: pointer;
+        padding: 5px 1em;
+        user-select: none;
+        border-radius: 4px;
+        background-color: #3994ff;
+        color: #f2f4fb;
+        transition: background-color 0.15s ease-out 0s, color, opacity, border;
+        &:hover {
+          background-color: #0076ff;
+        }
+      }
       .is-login {
         cursor: pointer;
         user-select: none;
