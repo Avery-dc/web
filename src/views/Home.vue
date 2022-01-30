@@ -8,11 +8,7 @@ import config from "@/config";
       <img src="@/assets/images/LogBoR.png" alt="" />
     </div>
     <div class="right flex flex-down flex-item-center">
-      <h1 class="title">
-        Avery
-        <br />
-        保護你的 DISCORD 伺服器
-      </h1>
+      <h1 class="title">Avery 保護你的 DISCORD 伺服器</h1>
       <div class="licks flex amstelvaralpha">
         <a :href="config.invite.bot" style="--background-color: #ffb455">
           <img src="@/assets/images/Home/LogoLong.png" alt="邀請我" />
@@ -38,13 +34,14 @@ section {
       margin: 0 1em;
     }
     .left img {
-      width: 200px;
+      width: 450px;
     }
     .right {
       .title {
         font-weight: 900;
         font-size: 65px;
         margin-top: 0;
+        text-align: center;
       }
       .licks {
         height: 100%;
@@ -61,7 +58,7 @@ section {
           font-size: 25px;
           border-radius: 5px;
           margin: 0 10px;
-
+          padding: 10px 2px;
           img {
             margin: 2px 0;
             width: 35px;
