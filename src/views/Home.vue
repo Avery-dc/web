@@ -21,7 +21,10 @@ import config from "@/config";
       </div>
     </div>
   </section>
-  <section></section>
+  <section class="botInfo">
+    <div class="user_len"></div>
+    <div class="guild_len"></div>
+  </section>
   <section class="Features"></section>
 </template>
 
@@ -72,7 +75,7 @@ section {
     }
     @media all and (max-width: 1250px) {
       .left img {
-        width: 16.2vw;
+        width: 36.1vw;
       }
       .right .title {
         font-size: 5.2vw !important;
@@ -85,6 +88,7 @@ section {
         a[href] {
           margin: 10px 0 !important;
           font-size: 2.5vw !important;
+          padding: 0 !important;
         }
         :global(.wrapper) {
           width: 100% !important;
