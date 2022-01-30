@@ -1,1 +1,0 @@
-import{d as e,n}from"./vendor.aaf71282.js";const c=e({setup(o){return n(()=>{window.opener&&(window.opener.window.dispatchEvent(new CustomEvent("get_dc_code",{detail:{code:new URLSearchParams(window.location.search).get("code")}})),window.close())}),(t,d)=>null}});export{c as default};
