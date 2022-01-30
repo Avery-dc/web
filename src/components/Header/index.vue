@@ -1,55 +1,47 @@
-<script setup lang="ts">
-import { onMounted, reactive, ref, Ref } from "vue";
-import axios from "axios";
+<script lang="ts">
+import { defineComponent, computed, onMounted, reactive, ref, Ref } from "vue";
 
 import { _ET } from "@/types/event";
-import { getLocalStorage, setLocalStorage } from "@/controllers/web";
-import discordApi from "@/controllers/discord";
+import { getLocalStorage } from "@/controllers/web";
+import { mapActions, mapGetters } from "vuex";
+import { GetterType } from "@/store/Authentication/getter";
+import { ActionsType } from "@/store/Authentication/actions";
+import { Modules } from "@/store";
+import { State } from "@/store/Authentication/state";
 
-const userEl = ref(null) as unknown as Ref<HTMLElement>;
-const dc_data = reactive({}) as any;
-const BASE_URL = import.meta.env.BASE_URL;
+export default defineComponent({
+  computed: {
+    ...mapGetters(Modules.AUTH, {
+      isAuthenticated: GetterType.GET_AUTHENTICATION,
+    }),
+  },
+  methods: {
+    ...mapActions(Modules.AUTH, [ActionsType.LOGIN, ActionsType.GET_INFO]),
+  },
+  mounted() {
+    let token = getLocalStorage("token");
+    if (token?.access_token) this.getMe(token.access_token);
+    addEventListener("get_dc_code", async (event: unknown) => {
+      let _ = event as _ET;
+      if (_?.detail?.code) console.log(this.getMe(_.detail.code));
+    });
+  },
+  setup() {
+    const userEl = ref(null) as unknown as Ref<HTMLElement>;
+    const dc_data = reactive({}) as any;
+    const BASE_URL = import.meta.env.BASE_URL;
 
-let token = getLocalStorage("token");
-let dcApi = new discordApi();
+    const login = () =>
+      window.open(
+        "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
+        "",
+        "width=500,height=620"
+      );
 
-if (token?.access_token) {
-  dcApi.init(token.access_token);
-  dcApi
-    .getMe()
-    .then((d) => Object.assign(dc_data, d.data))
-    .catch((e) => console.log(e));
-}
-
-const login = () => {
-  window.open(
-    "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
-    "",
-    "width=500,height=620"
-  );
-
-  addEventListener("get_dc_code", async (event: unknown) => {
-    let _ = event as _ET;
-    if (_?.detail?.code) {
-      let { data } = await axios({
-        url: "http://localhost:3001/services/discord-callback",
-        method: "POST",
-        data: {
-          code: _.detail?.code,
-          redirect_uri: "http://localhost:3000/discord-callback",
-        },
-      });
-      console.log(data);
-      if (!data?.error) {
-        let { data: userInfo } = await dcApi.getMe();
-        Object.assign(dc_data, userInfo);
-        setLocalStorage("token", data || {});
-      }
-    }
-  });
-};
-
-const openLicks = () => userEl.value.classList.toggle("down");
+    const openLicks = () => userEl.value.classList.toggle("down");
+    return { login, userEl, dc_data, BASE_URL, openLicks };
+  },
+});
 </script>
 
 <template>

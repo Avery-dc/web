@@ -1,11 +1,15 @@
 import { Module } from "vuex";
 
 import { RootState } from "..";
+import { getters } from "./getter";
 import { mutations } from "./mutations";
 import { State, state } from "./state";
 
-export const authModule: Module<State, RootState> = {
+const authModule: Module<State, RootState> = {
   namespaced: true,
-  state: () => state,
-  mutations: mutations,
+  mutations,
+  getters,
+  state,
 };
+
+export default authModule;
