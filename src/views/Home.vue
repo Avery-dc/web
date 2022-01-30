@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import config from "@/config";
+import { ref } from "vue";
+
+const user_len = ref(0);
+const guild_len = ref(0);
 </script>
 
 <template>
@@ -22,8 +26,8 @@ import config from "@/config";
     </div>
   </section>
   <section class="botInfo">
-    <div class="user_len"></div>
-    <div class="guild_len"></div>
+    <div class="user_len">被超過 {{ user_len }} 個使用者使用</div>
+    <div class="guild_len">被超過 {{ guild_len }} 台伺服器使用</div>
   </section>
   <section class="Features"></section>
 </template>
@@ -32,7 +36,7 @@ import config from "@/config";
 section {
   &.description {
     width: 100%;
-    height: 75%;
+    height: 95%;
     > * {
       margin: 0 1em;
     }

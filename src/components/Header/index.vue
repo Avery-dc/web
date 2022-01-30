@@ -55,7 +55,7 @@ const openLicks = () => userEl.value.classList.toggle("down");
   <header class="flex flex-item-center">
     <a :href="BASE_URL" class="logo flex flex-item-center">
       <img src="@/assets/images/Home/LogoLong.png" alt="" />
-      <p>Avery<sup>TW</sup></p>
+      <p>Avery</p>
     </a>
     <div class="menu">
       <div class="ul flex flex-item-center">
