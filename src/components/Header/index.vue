@@ -1,38 +1,33 @@
 <script lang="ts">
-import { defineComponent, computed, onMounted, reactive, ref, Ref } from "vue";
+import { defineComponent, computed,  reactive, ref, Ref, toRef } from "vue";
+import { mapActions, mapGetters } from "vuex";
 
 import { _ET } from "@/types/event";
 import { getLocalStorage } from "@/controllers/web";
-import { mapActions, mapGetters } from "vuex";
 import { GetterType } from "@/store/Authentication/getter";
 import { ActionsType } from "@/store/Authentication/actions";
 import { Modules, useStore } from "@/store";
 
 export default defineComponent({
-  computed: {
-    ...mapGetters(Modules.AUTH, {
-      isAuthenticated: GetterType.GET_AUTHENTICATION,
-    }),
-  },
   methods: {
-    ...mapActions(Modules.AUTH, [ActionsType.LOGIN, ActionsType.GET_INFO]),
+    getMe(code: string) {
+      this.store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);
+    }
   },
   mounted() {
     let token = getLocalStorage("token");
     if (token?.access_token) this.getMe(token.access_token);
-    addEventListener("get_dc_code", async (event: unknown) => {
-      let _ = event as _ET;
+    addEventListener("get_dc_code", async (event) => {
+      let _ = <_ET>event;
       if (_?.detail?.code)
-        this.store.dispatch(
-          `${[Modules.AUTH]}/${ActionsType.LOGIN}`,
-          _?.detail?.code
-        );
+        this.getMe(_?.detail?.code)
     });
   },
   setup() {
     const store = useStore();
     const userEl = ref<unknown>(null) as Ref<HTMLElement>;
-    const dc_data = reactive(store.state.auth.userInfo) as any;
+    const _dc_data = computed(() => store.state.auth.userInfo)
+    const dc_data = reactive({...store.state.auth.userInfo});
 
     const BASE_URL = import.meta.env.BASE_URL;
 
@@ -45,7 +40,7 @@ export default defineComponent({
 
     const openLicks = () => userEl.value.classList.toggle("down");
     Object.assign(window, { store });
-    return { login, userEl, dc_data, BASE_URL, openLicks, store };
+    return { login, userEl, dc_data: _dc_data , BASE_URL, openLicks, store };
   },
 });
 </script>
@@ -60,7 +55,7 @@ export default defineComponent({
       <div class="ul flex flex-item-center">
         <div class="user flex flex-item-center">
           <div
-            v-if="Object.keys(dc_data).length > 0"
+            v-if="dc_data"
             class="flex flex-item-center is-login"
             @click="openLicks"
             ref="userEl"

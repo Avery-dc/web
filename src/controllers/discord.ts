@@ -17,7 +17,6 @@ export default class DiscordApi {
       "";
     this.token = token;
     this.Authorization = `${user ? "Bearer" : "Bot"} ${token}`;
-    console.log(this.Authorization);
   }
   public async getToken(code: string): Promise<string | Object> {
     let { data } = await axios({

@@ -1,6 +1,7 @@
 {
   "name": "avery-web",
   "version": "0.0.0",
+  "prettier": "@company/prettier-config",
   "scripts": {
     "dev": "cross-env NODE_ENV=development vite --host",
     "serve": "vite preview",
