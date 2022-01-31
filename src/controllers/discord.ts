@@ -8,6 +8,7 @@ import {
   setSessionStorage,
 } from "@/controllers/web";
 
+import config from "@/config";
 import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
 export default class DiscordApi {
@@ -43,9 +44,9 @@ export default class DiscordApi {
   }
   public async getToken(code: string): Promise<string | Object> {
     let { data } = await axios({
-      url: "http://localhost:3001/services/discord-callback",
+      url: `${config.mainApiUrl}${config.oauth2.server_callback}`,
       method: "POST",
-      data: { code, redirect_uri: "http://localhost:3000/discord-callback" },
+      data: { code, redirect_uri: config.oauth2.redirect_uri },
     });
     this.savaToken(data);
     if (data.access_token) {

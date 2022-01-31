@@ -12,6 +12,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import("@/views/Home.vue"),
   },
   {
+    name: "dashboard",
+    path: "/dashboard",
+    component: () => import("@/views/dashboard/index.vue"),
+  },
+  {
     name: "discordCallback",
     path: "/discord-callback",
     component: () => import("@/services/discord.vue"),

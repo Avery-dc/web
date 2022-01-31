@@ -5,3 +5,12 @@ export interface ClientCredentialsAccessTokenResponse {
   scope: string;
   error?: string;
 }
+
+export interface guild {
+  id: string;
+  name: string;
+  icon: string;
+  owner: boolean;
+  permissions: number;
+  features: string[];
+}

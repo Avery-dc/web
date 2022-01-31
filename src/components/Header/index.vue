@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, computed, reactive, ref, Ref } from "vue";
+import { onMounted, computed, ref, Ref } from "vue";
 
 import { _ET } from "@/types/event";
 import { getLocalStorage } from "@/controllers/web";
 import { ActionsType } from "@/store/Authentication/actions";
 import { Modules, useStore } from "@/store";
 import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
+import config from "@/config";
 
 const store = useStore();
 const userEl = ref<unknown>(null) as Ref<HTMLElement>;
@@ -15,7 +16,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 
 const login = () =>
   window.open(
-    "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
+    `https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=${config.oauth2.redirect_uri}&response_type=code&scope=identify+guilds+email`,
     "",
     "width=500,height=620"
   );
@@ -82,6 +83,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 9999;
   .logo {
     color: var(--base-font-color);
     user-select: none;
