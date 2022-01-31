@@ -82,4 +82,3 @@ export default class DiscordApi {
     return { headers: { Authorization: this.Authorization || "" } };
   }
 }
-Object.assign(window, { DiscordApi });

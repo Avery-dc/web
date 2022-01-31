@@ -21,7 +21,6 @@ const login = () =>
   );
 
 const openLicks = () => userEl.value.classList.toggle("down");
-Object.assign(window, { store });
 
 const dcLogin = (code: string) => {
   store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);

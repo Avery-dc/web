@@ -7,8 +7,6 @@ import { MutationsTypes } from "./mutations";
 import discordApi from "../../controllers/discord";
 import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
-const Client = new discordApi();
-
 export enum ActionsType {
   LOGIN = "loginCode",
   GET_INFO = "getMe",
@@ -26,14 +24,17 @@ export type Actions = {
 };
 
 export const actions: ActionTree<State, RootState> & Actions = {
-  [ActionsType.GET_INFO]: async ({ commit }, token) => {
+  [ActionsType.GET_INFO]: async ({ commit, state }, token) => {
+    let Client = state.client;
     Client.init(token);
 
     let { data } = await Client.getMe();
+
     commit(MutationsTypes.SET_AUTH_DATA, data);
     return data;
   },
-  [ActionsType.LOGIN]: async ({ commit, dispatch }, code) => {
+  [ActionsType.LOGIN]: async ({ commit, dispatch, state }, code) => {
+    let Client = state.client;
     let token = await Client.getToken(code);
 
     if (typeof token === "string") {
