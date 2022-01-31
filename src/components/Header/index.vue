@@ -1,5 +1,5 @@
-<script lang="ts">
-import { defineComponent, computed, reactive, ref, Ref } from "vue";
+<script setup lang="ts">
+import { onMounted, computed, reactive, ref, Ref } from "vue";
 
 import { _ET } from "@/types/event";
 import { getLocalStorage } from "@/controllers/web";
@@ -7,42 +7,36 @@ import { ActionsType } from "@/store/Authentication/actions";
 import { Modules, useStore } from "@/store";
 import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
-export default defineComponent({
-  methods: {
-    dcLogin(code: string) {
-      this.store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);
-    },
-    getMe(data: ClientCredentialsAccessTokenResponse) {
-      this.store.dispatch(`${Modules.AUTH}/${ActionsType.GET_INFO}`, data);
-    },
-  },
-  mounted() {
-    let token = getLocalStorage("token");
-    if (token?.access_token) this.getMe(token);
-    addEventListener("get_dc_code", async (event) => {
-      let _ = <_ET>event;
-      if (_?.detail?.code) this.dcLogin(_?.detail?.code);
-    });
-  },
-  setup() {
-    const store = useStore();
-    const userEl = ref<unknown>(null) as Ref<HTMLElement>;
-    const _dc_data = computed(() => store.state.auth.userInfo);
-    const dc_data = reactive({ ...store.state.auth.userInfo });
+const store = useStore();
+const userEl = ref<unknown>(null) as Ref<HTMLElement>;
+const dc_data = computed(() => store.state.auth.userInfo);
 
-    const BASE_URL = import.meta.env.BASE_URL;
+const BASE_URL = import.meta.env.BASE_URL;
 
-    const login = () =>
-      window.open(
-        "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
-        "",
-        "width=500,height=620"
-      );
+const login = () =>
+  window.open(
+    "https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=http://localhost:3000/discord-callback&response_type=code&scope=identify+guilds+email",
+    "",
+    "width=500,height=620"
+  );
 
-    const openLicks = () => userEl.value.classList.toggle("down");
-    Object.assign(window, { store });
-    return { login, userEl, dc_data: _dc_data, BASE_URL, openLicks, store };
-  },
+const openLicks = () => userEl.value.classList.toggle("down");
+Object.assign(window, { store });
+
+const dcLogin = (code: string) => {
+  store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);
+};
+const getMe = (data: ClientCredentialsAccessTokenResponse) => {
+  store.dispatch(`${Modules.AUTH}/${ActionsType.GET_INFO}`, data);
+};
+
+onMounted(() => {
+  let token = getLocalStorage("token");
+  if (token?.access_token) getMe(token);
+  addEventListener("get_dc_code", async (event) => {
+    let _ = <_ET>event;
+    if (_?.detail?.code) dcLogin(_?.detail?.code);
+  });
 });
 </script>
 
