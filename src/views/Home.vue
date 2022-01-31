@@ -9,6 +9,16 @@ const user_len = computed(() => store.state.client.botInfo?.user_len || 0);
 const guild_len = computed(() => store.state.client.botInfo?.guild_len || 0);
 
 store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
+
+const roundToString = (num: number) => {
+  let maxLen = Math.floor(num).toString().length;
+  return (~~(
+    Math.round(num * +(1 + "0".padStart(maxLen > 1 ? maxLen - 1 : 1, "0"))) /
+    +(1 + "0".padStart(maxLen, "0"))
+  ))
+    .toString()
+    .padEnd(maxLen, "0");
+};
 </script>
 
 <template>
@@ -31,8 +41,12 @@ store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
     </div>
   </section>
   <section class="botInfo">
-    <div class="user_len">被超過 {{ user_len }} 個使用者使用</div>
-    <div class="guild_len">被超過 {{ guild_len }} 台伺服器使用</div>
+    <div class="user_len">
+      被超過 {{ roundToString(user_len) }} 個使用者使用
+    </div>
+    <div class="guild_len">
+      被超過 {{ roundToString(guild_len) }} 台伺服器使用
+    </div>
   </section>
   <section class="Features"></section>
 </template>
