@@ -2,9 +2,10 @@ import { ActionContext, ActionTree } from "vuex";
 
 import { RootState } from "..";
 import { State } from "./state";
+import { MutationsTypes } from "./mutations";
 
 import discordApi from "../../controllers/discord";
-import { MutationsTypes } from "./mutations";
+import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
 const Client = new discordApi();
 
@@ -20,7 +21,7 @@ export type Actions = {
   ) => Promise<string | undefined>;
   [ActionsType.GET_INFO]: (
     ctx: ActionContext<State, RootState>,
-    token?: string
+    token?: string | ClientCredentialsAccessTokenResponse
   ) => Promise<Object>;
 };
 

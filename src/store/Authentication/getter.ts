@@ -1,4 +1,5 @@
 import { GetterTree } from "vuex";
+
 import { RootState } from "..";
 import { State } from "./state";
 

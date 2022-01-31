@@ -1,33 +1,34 @@
 <script lang="ts">
-import { defineComponent, computed,  reactive, ref, Ref, toRef } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { defineComponent, computed, reactive, ref, Ref } from "vue";
 
 import { _ET } from "@/types/event";
 import { getLocalStorage } from "@/controllers/web";
-import { GetterType } from "@/store/Authentication/getter";
 import { ActionsType } from "@/store/Authentication/actions";
 import { Modules, useStore } from "@/store";
+import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
 export default defineComponent({
   methods: {
-    getMe(code: string) {
+    dcLogin(code: string) {
       this.store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);
-    }
+    },
+    getMe(data: ClientCredentialsAccessTokenResponse) {
+      this.store.dispatch(`${Modules.AUTH}/${ActionsType.GET_INFO}`, data);
+    },
   },
   mounted() {
     let token = getLocalStorage("token");
-    if (token?.access_token) this.getMe(token.access_token);
+    if (token?.access_token) this.getMe(token);
     addEventListener("get_dc_code", async (event) => {
       let _ = <_ET>event;
-      if (_?.detail?.code)
-        this.getMe(_?.detail?.code)
+      if (_?.detail?.code) this.dcLogin(_?.detail?.code);
     });
   },
   setup() {
     const store = useStore();
     const userEl = ref<unknown>(null) as Ref<HTMLElement>;
-    const _dc_data = computed(() => store.state.auth.userInfo)
-    const dc_data = reactive({...store.state.auth.userInfo});
+    const _dc_data = computed(() => store.state.auth.userInfo);
+    const dc_data = reactive({ ...store.state.auth.userInfo });
 
     const BASE_URL = import.meta.env.BASE_URL;
 
@@ -40,7 +41,7 @@ export default defineComponent({
 
     const openLicks = () => userEl.value.classList.toggle("down");
     Object.assign(window, { store });
-    return { login, userEl, dc_data: _dc_data , BASE_URL, openLicks, store };
+    return { login, userEl, dc_data: _dc_data, BASE_URL, openLicks, store };
   },
 });
 </script>

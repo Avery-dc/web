@@ -9,6 +9,7 @@ export type Mutations<S = State> = {
   [MutationsTypes.SET_AUTH_STATUS]: (state: S, mode?: boolean) => void;
   [MutationsTypes.SET_AUTH_DATA]: (state: S, data: State["userInfo"]) => void;
 };
+
 export const mutations: Mutations<State> & Mutations = {
   /**設定登入狀態 */
   [MutationsTypes.SET_AUTH_STATUS]: (state, mode) =>

@@ -1,5 +1,15 @@
 import axios from "axios";
+
 import Axios from "@/utils/axios";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  getSessionStorage,
+  setSessionStorage,
+} from "@/controllers/web";
+
+import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
+
 export default class DiscordApi {
   public token?: string;
   public Authorization?: string;
@@ -9,12 +19,25 @@ export default class DiscordApi {
 
     this.init(token, user);
   }
-  public init(token?: string, user: boolean = true) {
-    token =
-      token ||
-      localStorage.getItem("token") ||
-      sessionStorage.getItem("token") ||
-      "";
+  public getTokenJson(): undefined | ClientCredentialsAccessTokenResponse {
+    return getLocalStorage("token") || getSessionStorage("token");
+  }
+  public savaToken(
+    data?: ClientCredentialsAccessTokenResponse,
+    keep: boolean = true
+  ): void {
+    if (data?.error) return;
+    keep ? setLocalStorage("token", data) : setSessionStorage("token", data);
+  }
+  public init(
+    token?: string | ClientCredentialsAccessTokenResponse,
+    user: boolean = true
+  ): void {
+    token ||= this.getTokenJson();
+    if (typeof token !== "string" && token) {
+      this.savaToken(token);
+      token = token?.access_token;
+    }
     this.token = token;
     this.Authorization = `${user ? "Bearer" : "Bot"} ${token}`;
   }
@@ -24,6 +47,7 @@ export default class DiscordApi {
       method: "POST",
       data: { code, redirect_uri: "http://localhost:3000/discord-callback" },
     });
+    this.savaToken(data);
     if (data.access_token) {
       this.token = data.access_token;
       return data.access_token;
