@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import config from "@/config";
-import { ref } from "vue";
+import { computed } from "vue";
+import { Modules, useStore } from "@/store";
+import { ActionsType } from "@/store/Client/actions";
 
-const user_len = ref(0);
-const guild_len = ref(0);
+const store = useStore();
+const user_len = computed(() => store.state.client.botInfo?.user_len || 0);
+const guild_len = computed(() => store.state.client.botInfo?.guild_len || 0);
+
+store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
 </script>
 
 <template>

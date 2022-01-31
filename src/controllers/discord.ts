@@ -48,6 +48,7 @@ export default class DiscordApi {
       method: "POST",
       data: { code, redirect_uri: config.oauth2.redirect_uri },
     });
+
     this.savaToken(data);
     if (data.access_token) {
       this.token = data.access_token;

@@ -4,7 +4,6 @@ import { RootState } from "..";
 import { State } from "./state";
 import { MutationsTypes } from "./mutations";
 
-import discordApi from "../../controllers/discord";
 import { ClientCredentialsAccessTokenResponse } from "@/types/discord";
 
 export enum ActionsType {
