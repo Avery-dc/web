@@ -8,6 +8,16 @@ let config = {
     server_callback: "/services/discord-callback",
   },
   mainApiUrl: "http://localhost:3001",
+  languages: [
+    {
+      name: "繁體中文",
+      area: {
+        name: "臺灣",
+        icon: "https://www.mediafire.com/convkey/5079/rit79mf35jbjn465g.jpg",
+      },
+      mark: "ZH_TW",
+    },
+  ],
 };
 
 export default config;

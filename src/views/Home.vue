@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import config from "@/config";
 import { computed, ref } from "vue";
+
+import loadImg from "@/components/utils/img.vue";
 import { Modules, useStore } from "@/store";
 import { ActionsType } from "@/store/Client/actions";
 import Features from "@/data/Features.json";
@@ -46,7 +48,7 @@ const roundToString = (num: number): number =>
   <section class="Features flex flex-down flex-item-center">
     <div v-for="(feature, index) in features" :key="index" class="feature">
       <div class="left">
-        <img v-if="feature.imgUrl" :src="feature.imgUrl" alt="" />
+        <loadImg v-if="feature.imgUrl" :src="feature.imgUrl" />
       </div>
       <div class="right">
         <h1 v-text="feature.title" />
@@ -61,6 +63,7 @@ section {
   &.Features {
     margin: 10px 20px;
     .feature {
+      margin: 10px 0;
       display: grid;
       grid-template-columns: repeat(2, minmax(320px, 500px));
       img {
@@ -70,10 +73,12 @@ section {
       h1 {
         font-size: 35px;
         color: #f2f4fb;
+        text-align: center;
       }
       h5 {
         font-size: 16px;
         color: #9b9d9f;
+        text-align: left;
       }
       h1,
       h5 {
@@ -81,6 +86,11 @@ section {
         line-height: 40px;
         font-weight: 700;
         letter-spacing: -1px;
+      }
+      .right {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
       }
 
       &:nth-child(even) {
@@ -97,9 +107,9 @@ section {
           transform: none !important;
         }
         width: 80%;
-        text-align: center;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr;
+        text-align: center !important;
       }
     }
   }
