@@ -38,12 +38,8 @@ const roundToString = (num: number): number =>
     </div>
   </section>
   <section class="botInfo flex flex-item-center flex-down">
-    <div class="user_len">
-      被超過 {{ roundToString(user_len) }} 個使用者使用
-    </div>
-    <div class="guild_len">
-      被超過 {{ roundToString(guild_len) }} 台伺服器使用
-    </div>
+    <div class="user_len">被超過 {{ roundToString(user_len) }} 個使用者</div>
+    <div class="guild_len">及 {{ roundToString(guild_len) }} 台伺服器使用</div>
   </section>
   <section class="Features flex flex-down flex-item-center">
     <div v-for="(feature, index) in features" :key="index" class="feature">
