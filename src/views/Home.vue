@@ -47,7 +47,7 @@ const roundToString = (num: number): number =>
   </section>
   <section class="Features flex flex-down flex-item-center">
     <div v-for="(feature, index) in features" :key="index" class="feature">
-      <div class="left">
+      <div class="left flex flex-item-center flex-center">
         <loadImg v-if="feature.imgUrl" :src="feature.imgUrl" />
       </div>
       <div class="right">
@@ -66,6 +66,7 @@ section {
       margin: 10px 0;
       display: grid;
       grid-template-columns: repeat(2, minmax(320px, 500px));
+      gap: 1em;
       img {
         max-width: 100%;
         max-height: 100%;
@@ -102,14 +103,14 @@ section {
         }
       }
       @media all and (max-width: 680px) {
-        .left,
-        .right {
-          transform: none !important;
-        }
         width: 80%;
         grid-template-rows: 1fr 1fr;
         grid-template-columns: 1fr;
         text-align: center !important;
+        .left,
+        .right {
+          transform: none !important;
+        }
       }
     }
   }
