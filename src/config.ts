@@ -12,12 +12,13 @@ let config = {
     {
       name: "繁體中文",
       area: {
-        name: "臺灣",
+        name: "台灣",
         icon: "https://www.mediafire.com/convkey/5079/rit79mf35jbjn465g.jpg",
       },
       mark: "ZH_TW",
     },
   ],
+  defaultLanguage: "ZH_TW",
 };
 
 export default config;
