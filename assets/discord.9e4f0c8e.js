@@ -1,0 +1,1 @@
+import{d as e,o}from"./vendor.18b15c6e.js";const r=e({setup(n){return o(()=>{window.opener&&(window.opener.window.dispatchEvent(new CustomEvent("get_dc_code",{detail:{code:new URLSearchParams(window.location.search).get("code")}})),window.close())}),(t,d)=>null}});export{r as default};
