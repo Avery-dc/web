@@ -73,7 +73,7 @@ section {
       h1 {
         font-size: 35px;
         color: #f2f4fb;
-        text-align: center;
+        margin: 10px 0;
       }
       h5 {
         font-size: 16px;
