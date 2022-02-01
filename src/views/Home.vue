@@ -1,24 +1,19 @@
 <script setup lang="ts">
 import config from "@/config";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { Modules, useStore } from "@/store";
 import { ActionsType } from "@/store/Client/actions";
+import Features from "@/data/Features.json";
 
 const store = useStore();
 const user_len = computed(() => store.state.client.botInfo?.user_len || 0);
 const guild_len = computed(() => store.state.client.botInfo?.guild_len || 0);
+const features = ref(Features);
 
 store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
 
-const roundToString = (num: number) => {
-  let maxLen = Math.floor(num).toString().length;
-  return (~~(
-    Math.round(num * +(1 + "0".padStart(maxLen > 1 ? maxLen - 1 : 1, "0"))) /
-    +(1 + "0".padStart(maxLen, "0"))
-  ))
-    .toString()
-    .padEnd(maxLen, "0");
-};
+const roundToString = (num: number): number =>
+  +(num.toString().slice(0, -1) + "0") || 1;
 </script>
 
 <template>
@@ -40,7 +35,7 @@ const roundToString = (num: number) => {
       </div>
     </div>
   </section>
-  <section class="botInfo">
+  <section class="botInfo flex flex-item-center flex-down">
     <div class="user_len">
       被超過 {{ roundToString(user_len) }} 個使用者使用
     </div>
@@ -48,14 +43,74 @@ const roundToString = (num: number) => {
       被超過 {{ roundToString(guild_len) }} 台伺服器使用
     </div>
   </section>
-  <section class="Features"></section>
+  <section class="Features flex flex-down flex-item-center">
+    <div v-for="(feature, index) in features" :key="index" class="feature">
+      <div class="left">
+        <img v-if="feature.imgUrl" :src="feature.imgUrl" alt="" />
+      </div>
+      <div class="right">
+        <h1 v-text="feature.title" />
+        <h5 v-text="feature.description" />
+      </div>
+    </div>
+  </section>
 </template>
 
 <style scoped lang="scss">
 section {
+  &.Features {
+    margin: 10px 20px;
+    .feature {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(320px, 500px));
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      h1 {
+        font-size: 35px;
+        color: #f2f4fb;
+      }
+      h5 {
+        font-size: 16px;
+        color: #9b9d9f;
+      }
+      h1,
+      h5 {
+        text-transform: none;
+        line-height: 40px;
+        font-weight: 700;
+        letter-spacing: -1px;
+      }
+
+      &:nth-child(even) {
+        .left {
+          transform: translateX(100%);
+        }
+        .right {
+          transform: translateX(-100%);
+        }
+      }
+      @media all and (max-width: 680px) {
+        .left,
+        .right {
+          transform: none !important;
+        }
+        width: 80%;
+        text-align: center;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+  &.botInfo {
+    font-size: 2em;
+    background-color: #1f2129;
+    padding: 1em 0;
+  }
   &.description {
     width: 100%;
-    height: 95%;
+    margin: 20px 0;
     > * {
       margin: 0 1em;
     }
