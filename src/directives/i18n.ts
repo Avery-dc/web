@@ -12,8 +12,6 @@ export default <Directive>{
     let options = vnode.dirs?.[0].instance?.$options;
     let file = options?.__file;
     console.log(file);
-
-    if (file) console.log(classify(file));
   },
   mounted(el: HTMLElement, binding: DirectiveBinding<string>) {
     let { arg, value } = binding;
