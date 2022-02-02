@@ -10,8 +10,7 @@ export default <Directive>{
   created(a, b, vnode) {
     console.log();
     let options = vnode.dirs?.[0].instance?.$options;
-    let file = options?.__file;
-    console.log(file, options?.name);
+    console.log(options);
   },
   mounted(el: HTMLElement, binding: DirectiveBinding<string>) {
     let { arg, value } = binding;
