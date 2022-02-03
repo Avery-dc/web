@@ -48,6 +48,7 @@ onMounted(() => {
     </a>
     <div class="menu">
       <div class="ul flex flex-item-center">
+        <router-link to="/dashboard">dashboard</router-link>
         <div class="user flex flex-item-center">
           <div
             v-if="dc_data"
@@ -100,9 +101,25 @@ header {
       height: 100%;
       margin: 0;
       padding: 0;
+      > * {
+        color: white;
+        margin: 0 5px;
+        padding: 0 15px;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        &:not(.user):hover {
+          background-color: #404866;
+        }
+      }
     }
     .user {
       .login {
+        width: max-content;
         cursor: pointer;
         padding: 5px 1em;
         user-select: none;

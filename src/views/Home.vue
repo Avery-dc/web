@@ -72,6 +72,7 @@ section {
   &.Features {
     margin: 10px 20px;
     .feature {
+      align-items: center;
       margin: 10px 0;
       display: grid;
       grid-template-columns: repeat(2, minmax(320px, 500px));
@@ -101,6 +102,7 @@ section {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        height: max-content;
       }
 
       &:nth-child(even) {
