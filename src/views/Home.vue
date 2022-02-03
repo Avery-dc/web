@@ -6,13 +6,18 @@ import { useI18n } from "vue-i18n";
 import loadImg from "@/components/utils/img.vue";
 import { Modules, useStore } from "@/store";
 import { ActionsType } from "@/store/Client/actions";
-import Features from "@/data/Features.json";
 
 const { t } = useI18n();
 const store = useStore();
 const user_len = computed(() => store.state.client.botInfo?.user_len || 0);
 const guild_len = computed(() => store.state.client.botInfo?.guild_len || 0);
-const features = ref(Features);
+const features = [
+  "detect_websites",
+  "customizable",
+  "logSystem",
+  "timely",
+  "preventBot",
+];
 
 store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
 
