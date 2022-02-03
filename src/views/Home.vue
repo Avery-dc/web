@@ -52,11 +52,11 @@ const roundToString = (num: number): number =>
   <section class="Features flex flex-down flex-item-center">
     <div v-for="(feature, index) in features" :key="index" class="feature">
       <div class="left flex flex-item-center flex-center">
-        <loadImg v-if="feature.imgUrl" :src="feature.imgUrl" />
+        <loadImg :src="t(`home.features.${feature}.imgUrl`)" />
       </div>
       <div class="right">
-        <h1 v-text="feature.title" />
-        <h5 v-text="feature.description" />
+        <h1 v-text="t(`home.features.${feature}.title`)" />
+        <h5 v-text="t(`home.features.${feature}.description`)" />
       </div>
     </div>
   </section>

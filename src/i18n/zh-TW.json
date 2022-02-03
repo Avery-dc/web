@@ -10,11 +10,31 @@
       "guildLen": "及 {0} 台伺服器使用"
     },
     "features": {
-      "title": {
-        "detect_websites": "檢測 惡意/釣魚 網站"
+      "detect_websites": {
+        "title": "檢測 惡意/釣魚 網站",
+        "description": "我們將防止任何類型的詐騙鏈接以保護大家的安全\n免受黑客攻擊！",
+        "imgUrl": "/Home/phising_website_detection.png"
       },
-      "description": {},
-      "imgUrl": {}
+      "customizable": {
+        "title": "可自訂義",
+        "description": "我們關心使用我們的機器人的便利性。因此，您可以自定義我們機器人的大多數功能！ 未來還會有更多自定義功能，敬請期待！",
+        "imgUrl": "/Home/member_logging_system.png"
+      },
+      "logSystem": {
+        "title": "紀錄成員的活動等事項\n日誌系統",
+        "imgUrl": "/Home/customize_-able_setting.png",
+        "description": "我們將記錄成員的活動記錄，例如: 加入、離開、刪除/編輯消息等"
+      },
+      "timely": {
+        "title": "實時更新惡意網站之料庫",
+        "imgUrl": "/Home/real_time_updated_malcious_website_and_member.png",
+        "description": "我們的機器人會自動更新最新的惡意連結資料庫，而服務器管理員和版主可以通過舉報系統舉報會員。"
+      },
+      "preventBot": {
+        "title": "防止大量機器人進入",
+        "imgUrl": "/Home/alt_prevention.png",
+        "description": "我們提供踢除短時間帳號的功能。這將阻止大多數機器人襲擊。"
+      }
     }
   }
 }
