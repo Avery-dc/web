@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import config from "@/config";
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 
 import loadImg from "@/components/utils/img.vue";
 import { Modules, useStore } from "@/store";
 import { ActionsType } from "@/store/Client/actions";
 import Features from "@/data/Features.json";
 
+const { t } = useI18n();
 const store = useStore();
 const user_len = computed(() => store.state.client.botInfo?.user_len || 0);
 const guild_len = computed(() => store.state.client.botInfo?.guild_len || 0);
@@ -24,22 +26,28 @@ const roundToString = (num: number): number =>
       <img src="@/assets/images/LogBoR.png" alt="" />
     </div>
     <div class="right flex flex-down flex-item-center">
-      <h1 class="title">Avery 保護你的 DISCORD 伺服器</h1>
+      <h1 class="title" v-text="t('home.description.title')" />
       <div class="licks flex amstelvaralpha">
         <a :href="config.invite.bot" style="--background-color: #ffb455">
           <img src="@/assets/images/Home/LogoLong.png" alt="邀請我" />
-          邀請我
+          {{ t("home.description.inviteMe") }}
         </a>
         <a :href="config.invite.dcServer" style="--background-color: #5865f2">
           <img src="@/assets/images/discord.png" alt="discord" />
-          加入我們
+          {{ t("home.description.joinUs") }}
         </a>
       </div>
     </div>
   </section>
   <section class="botInfo flex flex-item-center flex-down">
-    <div class="user_len">被超過 {{ roundToString(user_len) }} 個使用者</div>
-    <div class="guild_len">及 {{ roundToString(guild_len) }} 台伺服器使用</div>
+    <div
+      class="user_len"
+      v-text="t('home.botInfo.userLen', [roundToString(user_len)])"
+    />
+    <div
+      class="guild_len"
+      v-text="t('home.botInfo.guildLen', [roundToString(guild_len)])"
+    />
   </section>
   <section class="Features flex flex-down flex-item-center">
     <div v-for="(feature, index) in features" :key="index" class="feature">

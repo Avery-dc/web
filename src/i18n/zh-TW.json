@@ -1,0 +1,20 @@
+{
+  "home": {
+    "description": {
+      "title": "Avery 保護你的 DISCORD 伺服器",
+      "inviteMe": "邀請我",
+      "joinUs": "加入我們"
+    },
+    "botInfo": {
+      "userLen": "被超過 {0} 個使用者",
+      "guildLen": "及 {0} 台伺服器使用"
+    },
+    "features": {
+      "title": {
+        "detect_websites": "檢測 惡意/釣魚 網站"
+      },
+      "description": {},
+      "imgUrl": {}
+    }
+  }
+}

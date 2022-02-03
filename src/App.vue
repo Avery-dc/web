@@ -8,7 +8,6 @@ import Footer from "@/components/Footer/index.vue";
   <div class="wrapper">
     <router-view />
   </div>
-  <div v-i18n="'awa'"></div>
   <Footer />
 </template>
 

@@ -1,9 +1,7 @@
-import EN_US from "./EN_US";
-import ZH_TW from "./ZH_TW";
-
-type i18nData = { [str: string]: string };
+import EN_US from "./en-US.json";
+import ZH_TW from "./zh-TW.json";
 
 export default {
-  EN_US: <i18nData>EN_US,
-  ZH_TW: <i18nData>ZH_TW,
+  "en-US": EN_US,
+  "zh-TW": ZH_TW,
 };
