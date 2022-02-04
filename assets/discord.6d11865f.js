@@ -1,1 +1,0 @@
-import{d as o,o as n}from"./vendor.3d779ceb.js";const a=o({setup(t){return n(()=>{if(window.opener){let e=new URLSearchParams(window.location.search).get("code");e&&localStorage.setItem("dcCode",e),window.close()}}),(e,c)=>null}});export{a as default};

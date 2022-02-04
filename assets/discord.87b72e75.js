@@ -1,0 +1,1 @@
+import{d as e,o,A as n}from"./vendor.3d779ceb.js";const c=e({setup(r){return o(()=>{window.opener?n().push({path:"/",query:{dcCode:new URLSearchParams(window.location.search).get("code")}}):window.close()}),(s,t)=>null}});export{c as default};
