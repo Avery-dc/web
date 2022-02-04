@@ -51,7 +51,7 @@ const dcLogin = (code: string) =>
     </div>
     <div class="right flex flex-down flex-item-center">
       <h1 class="title" v-text="t('home.description.title')" />
-      <div class="licks flex amstelvaralpha">
+      <div class="licks flex">
         <a :href="config.invite.bot" style="--background-color: #ffb455">
           <img src="@/assets/images/Home/LogoLong.png" alt="邀請我" />
           {{ t("home.description.inviteMe") }}
