@@ -22,6 +22,6 @@ export const actions: ActionTree<State, RootState> & Actions = {
       baseURL: config.mainApiUrl,
       url: "/api/discord/botInfo",
     });
-    commit(MutationsTypes.getBotInfo, data);
+    commit(MutationsTypes.setBotInfo, data);
   },
 };

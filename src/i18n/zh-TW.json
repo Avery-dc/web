@@ -12,7 +12,7 @@
     "features": {
       "detect_websites": {
         "title": "檢測 惡意/釣魚 網站",
-        "description": "我們將防止任何類型的詐騙鏈接以保護大家的安全\n免受黑客攻擊！",
+        "description": "我們將防止任何類型的詐騙鏈接以保護大家的安全<br />免受黑客攻擊！",
         "imgUrl": "/Home/phising_website_detection.png"
       },
       "customizable": {
@@ -21,7 +21,7 @@
         "imgUrl": "/Home/member_logging_system.png"
       },
       "logSystem": {
-        "title": "紀錄成員的活動等事項\n日誌系統",
+        "title": "紀錄成員的活動等事項<br />日誌系統",
         "imgUrl": "/Home/customize_-able_setting.png",
         "description": "我們將記錄成員的活動記錄，例如: 加入、離開、刪除/編輯消息等"
       },
@@ -37,7 +37,11 @@
       }
     }
   },
+  "login": {
+    "title": "立即使用 discord 登入本網站<br />使用本網頁進行設定"
+  },
   "main": {
+    "login": "登入",
     "footer": {
       "description": "{0} 的最佳保護！"
     }

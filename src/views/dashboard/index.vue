@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 
 import { Modules, useStore } from "@/store";
 
 import makeGuild from "@/components/dashboard/guild.vue";
 
 let guilds = ref([]);
-const $route = useRoute();
 const store = useStore();
 const Client = computed(() => store.state[Modules.AUTH].client);
 const login = computed(() => store.state[Modules.AUTH].login);
-// !login
+
+!login.value && useRouter().push("/");
+
 Client.value.getGuilds().then((d) => (guilds.value = d.data));
 </script>
 

@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import Header from "@/components/Header/index.vue";
 import Footer from "@/components/Footer/index.vue";
+
+import { useStore, Modules } from "@/store";
+import { MutationsTypes } from "./store/Client/mutations";
+
+const store = useStore();
+
+window.addEventListener("storage", () =>
+  store.commit(`${Modules.CLIENT}/${MutationsTypes.setLocalStorage}`)
+);
 </script>
 
 <template>
