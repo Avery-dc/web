@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import config from "@/config";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
-import loadImg from "@/components/utils/img.vue";
+import config from "@/config";
 import { Modules, useStore } from "@/store";
+import loadImg from "@/components/utils/img.vue";
 import { ActionsType } from "@/store/Client/actions";
+import { ActionsType as AuthenticationActionsType } from "@/store/Authentication/actions";
+import { _ET } from "@/types/event";
 
 const { t } = useI18n();
 const store = useStore();
@@ -23,6 +25,23 @@ store.dispatch(`${Modules.CLIENT}/${ActionsType.loadBotInfo}`);
 
 const roundToString = (num: number): number =>
   +(num.toString().slice(0, -1) + "0") || 1;
+
+let dcCode = new URLSearchParams(window.location.search).get("dcCode");
+
+if (dcCode && window.opener) {
+  window.opener.window.dispatchEvent(
+    new CustomEvent("get_dc_code", { detail: { code: dcCode } })
+  );
+  window.close();
+}
+
+addEventListener("get_dc_code", async (event) => {
+  let _ = <_ET>event;
+  if (_?.detail?.code) dcLogin(_?.detail?.code);
+  console.log(_?.detail);
+});
+const dcLogin = (code: string) =>
+  store.dispatch(`${[Modules.AUTH]}/${AuthenticationActionsType.LOGIN}`, code);
 </script>
 
 <template>

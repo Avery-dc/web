@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, computed, ref, Ref } from "vue";
 
-import { _ET } from "@/types/event";
 import { getLocalStorage } from "@/controllers/web";
 import { ActionsType } from "@/store/Authentication/actions";
 import { Modules, useStore } from "@/store";
@@ -15,19 +14,15 @@ const dc_data = computed(() => store.state.auth.userInfo);
 const BASE_URL = import.meta.env.BASE_URL;
 
 const login = () => {
-  addEventListener("get_dc_code", async (event) => {
-    let _ = <_ET>event;
-    if (_?.detail?.code) dcLogin(_?.detail?.code);
-  });
   window.open(
-    `https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=${config.oauth2.redirect_uri}&response_type=code&scope=identify+guilds+email`
+    `https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=${config.oauth2.redirect_uri}&response_type=code&scope=identify+guilds+email`,
+    "",
+    "width=500,height=620"
   );
 };
 
 const openLicks = () => userEl.value.classList.toggle("down");
 
-const dcLogin = (code: string) =>
-  store.dispatch(`${[Modules.AUTH]}/${ActionsType.LOGIN}`, code);
 const getMe = (data: ClientCredentialsAccessTokenResponse) =>
   store.dispatch(`${Modules.AUTH}/${ActionsType.GET_INFO}`, data);
 

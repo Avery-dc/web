@@ -22,11 +22,10 @@ watch(dcCode, () => {
   let dc_code = localStorage.getItem("dc_code");
   if (dcCode && dc_code) dcLogin(dc_code);
 });
-const login = () => {
+const login = () =>
   window.open(
     `https://discord.com/api/oauth2/authorize?client_id=863676847731376170&redirect_uri=${config.oauth2.redirect_uri}&response_type=code&scope=identify+guilds+email`
   );
-};
 </script>
 
 <template>
