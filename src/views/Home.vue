@@ -109,6 +109,7 @@ section {
         font-size: 16px;
         color: #9b9d9f;
         text-align: left;
+        margin-bottom: 0;
       }
       h1,
       h5 {
